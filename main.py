@@ -3,6 +3,7 @@
 # 2. convert the letter into lowercase(apple is not equal to Apple)
 # 3. remove punctuation
 import string
+from collections import Counter
 text = open('read.txt' , encoding='utf-8').read()
 #convert to lower text
 lower_text = text.lower()
@@ -41,12 +42,18 @@ for word in tokenized_word:
 #  - Extract the word and emotion using split
 # 2) If word is present -> Add the emotion to emotion_list
 # 3) Finally count each emotion in the emotion list
-print(final_words)
-with open('emotions.txt' , 'r') as file:
+# print(final_words)
+emotion_list = []
+with open('emotions.txt', 'r') as file:
     for line in file:
         clear_line = line.replace("\n", '').replace(",",'').replace("'",'').strip()
         word, emotion = clear_line.split(':')
-        print("word: "+word+" "+"emotion: "+emotion)
+        if word in final_words:
+            emotion_list.append(emotion)
+print(emotion_list)
+w= Counter(emotion_list)
+print(w)
+
 
 
 
